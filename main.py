@@ -13,3 +13,11 @@ def first_name():
     print(frst_name)
 
 first_name()
+
+
+def last_name():
+    lst_name = names.get_last_name()
+    print(lst_name)
+
+last_name()
+
