@@ -6,3 +6,10 @@ def full_name():
     print(fll_name)
 
 full_name()
+
+
+def first_name():
+    frst_name = names.get_first_name()
+    print(frst_name)
+
+first_name()
