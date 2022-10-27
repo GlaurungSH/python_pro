@@ -1,6 +1,6 @@
 import sqlite3
 from faker import Faker
-
+from faker.providers import file
 
 faker = Faker(['en_US'])
 
@@ -43,5 +43,18 @@ def ins_data():
     con.close()
 
 
-create_person_tb()
-ins_data()
+def print_person():
+    db = 'homework3.db'
+    con = sqlite3.connect(db)
+    cur = con.cursor()
+    sql = '''
+    SELECT last_name, first_name, job FROM person ORDER BY last_name
+    '''
+    person_data = cur.execute(sql)
+    for row in person_data:
+        print(row)
+    con.close()
+
+# create_person_tb()
+# ins_data()
+print_person()
