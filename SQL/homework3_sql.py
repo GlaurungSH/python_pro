@@ -3,10 +3,10 @@ from faker import Faker
 from faker.providers import file
 
 faker = Faker(['en_US'])
+db = 'homework3.db'
 
 
 def create_person_tb():
-    db = 'homework3.db'
     con = sqlite3.connect(db)
     cur = con.cursor()
     sql = '''
@@ -23,7 +23,6 @@ def create_person_tb():
 
 
 def ins_data():
-    db = 'homework3.db'
     con = sqlite3.connect(db)
     cur = con.cursor()
     for i in range(10):
@@ -44,17 +43,31 @@ def ins_data():
 
 
 def print_person():
-    db = 'homework3.db'
     con = sqlite3.connect(db)
     cur = con.cursor()
     sql = '''
-    SELECT last_name, first_name, job FROM person ORDER BY last_name
+    SELECT last_name, first_name, job, age, personid FROM person ORDER BY last_name
     '''
     person_data = cur.execute(sql)
     for row in person_data:
         print(row)
+    con.commit()
+    con.close()
+
+
+def update_person(personid, age):
+    con = sqlite3.connect(db)
+    cur = con.cursor()
+    sql = f'''
+    UPDATE person
+    SET age={age}
+    WHERE personid={personid}
+    '''
+    cur.execute(sql)
+    con.commit()
     con.close()
 
 # create_person_tb()
 # ins_data()
+update_person(1, 35)
 print_person()
