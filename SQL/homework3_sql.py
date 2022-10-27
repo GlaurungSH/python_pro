@@ -1,6 +1,5 @@
 import sqlite3
 from faker import Faker
-from faker.providers import file
 
 faker = Faker(['en_US'])
 db = 'homework3.db'
@@ -67,7 +66,22 @@ def update_person(personid, age):
     con.commit()
     con.close()
 
-# create_person_tb()
-# ins_data()
-update_person(1, 35)
-print_person()
+
+def delete_person(personid):
+    con = sqlite3.connect(db)
+    cur = con.cursor()
+    sql = f'''
+    DELETE FROM person
+    WHERE personid={personid}
+    '''
+    cur.execute(sql)
+    con.commit()
+    con.close()
+
+
+if __name__ == '__main__':
+    create_person_tb()
+    ins_data()
+    update_person(1, 35)
+    delete_person(2)
+    print_person()
